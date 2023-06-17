@@ -43,13 +43,23 @@ describe("Gifs endpoint", function () {
     expect(response.body.length).toBeLessThanOrEqual(50)
   })
 
-  it("can search and results contains the searched text", async () => {
+  it("can search and results contains the searched text (cat)", async () => {
     const response = await request(app)
       .get("/api/gifs/search?searchedText=cat")
       .expect(200)
     expect(response.body.length).toBeGreaterThanOrEqual(1)
     response.body.forEach((gif: Gif) => {
       expect(gif.title.toLocaleLowerCase()).toContain("cat")
+    })
+  })
+
+  it("can search and results contains the searched text (dog)", async () => {
+    const response = await request(app)
+      .get("/api/gifs/search?searchedText=dog")
+      .expect(200)
+    expect(response.body.length).toBeGreaterThanOrEqual(1)
+    response.body.forEach((gif: Gif) => {
+      expect(gif.title.toLocaleLowerCase()).toContain("dog")
     })
   })
 })
