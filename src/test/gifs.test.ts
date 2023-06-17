@@ -4,7 +4,7 @@ import request from "supertest"
 import { Express, response } from "express"
 import { GifDTO } from "../interfaces/GifDTO"
 
-describe("Memes endpoint", function () {
+describe("Gifs endpoint", function () {
   let app: Express
 
   beforeEach(() => {
@@ -12,27 +12,27 @@ describe("Memes endpoint", function () {
     app = createApp(db)
   })
 
-  it("exists", async () => await request(app).get("/api/memes").expect(200))
+  it("exists", async () => await request(app).get("/api/gifs").expect(200))
 
   it("return json", async () =>
     await request(app)
-      .get("/api/memes")
+      .get("/api/gifs")
       .expect(200)
       .expect("Content-Type", /application\/json/))
 
   it("response is array", async () => {
-    const response = await request(app).get("/api/memes").expect(200)
+    const response = await request(app).get("/api/gifs").expect(200)
     expect(response.body).toBeInstanceOf(Array)
   })
 
-  it("response returns 50 memes", async () => {
-    const response = await request(app).get("/api/memes").expect(200)
+  it("response returns 50 gifs", async () => {
+    const response = await request(app).get("/api/gifs").expect(200)
     expect(response.body).toHaveLength(50)
   })
 
-  it("endpoint 'memes/search/' exists", async () => {
+  it("endpoint 'gifs/search/' exists", async () => {
     const response = await request(app)
-      .get("/api/memes/search?searchedText=a")
+      .get("/api/gifs/search?searchedText=a")
       .expect(200)
   })
 })

@@ -5,7 +5,7 @@ import { DatabaseSchema } from "./interfaces/DatabaseSchema"
 import cors from "cors"
 
 /* routers */
-import createMemesRouter from "./routes/memes"
+import createGifsRouter from "./routes/gifs"
 
 export function createApp(db: LowdbSync<DatabaseSchema>) {
   const app: Express = express()
@@ -25,7 +25,7 @@ export function createApp(db: LowdbSync<DatabaseSchema>) {
 }
 
 function createRoutes(app: Express, db: LowdbSync<DatabaseSchema>) {
-  app.use("/api/memes", createMemesRouter(db))
+  app.use("/api/gifs", createGifsRouter(db))
 }
 
 export default { createApp }

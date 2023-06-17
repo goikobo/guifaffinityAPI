@@ -1,5 +1,5 @@
-import { Meme } from "./Meme"
+import { Gif } from "./Gif"
 
 export interface DatabaseSchema {
-  memes: Meme[]
+  gifs: Gif[]
 }

@@ -1,12 +1,12 @@
 import Lowdb, { LowdbSync } from "lowdb"
 import { DatabaseSchema } from "../interfaces/DatabaseSchema"
 
-class MemesService {
+class GifsService {
   constructor(private db: LowdbSync<DatabaseSchema>) {}
 
   public get() {
-    return this.db.get("memes").take(50).value()
+    return this.db.get("gifs").take(50).value()
   }
 }
 
-export default MemesService
+export default GifsService
