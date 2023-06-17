@@ -13,8 +13,11 @@ function createRouter(db: LowdbSync<DatabaseSchema>) {
     res.json(response)
   })
   router.get("/search", async (req: Request, res: Response) => {
+    const gifsService = new GifsService(db)
+    const response = gifsService.search("cat")
+
     res.setHeader("Content-Type", "application/json")
-    res.json([])
+    res.json(response)
   })
   return router
 }
