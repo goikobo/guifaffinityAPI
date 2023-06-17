@@ -35,4 +35,11 @@ describe("Gifs endpoint", function () {
       .get("/api/gifs/search?searchedText=a")
       .expect(200)
   })
+
+  it("can search and have results limited to 50", async () => {
+    const response = await request(app)
+      .get("/api/memes/search?searchedText=a")
+      .expect(200)
+    expect(response.body.length).toBeLessThanOrEqual(50)
+  })
 })
