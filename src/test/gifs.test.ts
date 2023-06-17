@@ -2,7 +2,7 @@ import { createApp } from "../app"
 import { createMemoryDB } from "../services/dbService"
 import request from "supertest"
 import { Express, response } from "express"
-import { GifDTO } from "../interfaces/GifDTO"
+import { Gif } from "../interfaces/Gif"
 
 describe("Gifs endpoint", function () {
   let app: Express
@@ -41,5 +41,15 @@ describe("Gifs endpoint", function () {
       .get("/api/gifs/search?searchedText=a")
       .expect(200)
     expect(response.body.length).toBeLessThanOrEqual(50)
+  })
+
+  it("can search and results contains the searched text", async () => {
+    const response = await request(app)
+      .get("/api/gifs/search?searchedText=cat")
+      .expect(200)
+    expect(response.body.length).toBeGreaterThanOrEqual(1)
+    response.body.forEach((gif: Gif) => {
+      expect(gif.title.toLocaleLowerCase()).toContain("cat")
+    })
   })
 })
