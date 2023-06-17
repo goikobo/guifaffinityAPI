@@ -1,7 +1,8 @@
 import { createApp } from "../app"
 import { createMemoryDB } from "../services/dbService"
 import request from "supertest"
-import { Express } from "express"
+import { Express, response } from "express"
+import { GifDTO } from "../interfaces/GifDTO"
 
 describe("Memes endpoint", function () {
   let app: Express
@@ -27,5 +28,11 @@ describe("Memes endpoint", function () {
   it("response returns 50 memes", async () => {
     const response = await request(app).get("/api/memes").expect(200)
     expect(response.body).toHaveLength(50)
+  })
+
+  it("endpoint 'memes/search/' exists", async () => {
+    const response = await request(app)
+      .get("/api/memes/search?searchedText=a")
+      .expect(200)
   })
 })
