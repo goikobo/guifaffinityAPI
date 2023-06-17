@@ -12,6 +12,9 @@ function createRouter(db: LowdbSync<DatabaseSchema>) {
     res.setHeader("Content-Type", "application/json")
     res.json(response)
   })
+  router.get("/search", async (req: Request, res: Response) => {
+    res.sendStatus(200)
+  })
   return router
 }
 
