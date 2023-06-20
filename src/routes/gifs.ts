@@ -24,7 +24,7 @@ function createRouter(db: LowdbSync<DatabaseSchema>) {
       : gifsService.search(searchedText);
 
     if (response.length === 0) {
-      res.status(404);
+      res.sendStatus(404);
       return;
     }
 
