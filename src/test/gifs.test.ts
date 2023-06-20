@@ -66,7 +66,8 @@ describe("Gifs endpoint", function () {
   it("can search and results return 404 if not contains any result (Supercalifragilisticoexpialidoso)", async () => {
     const response = await request(app)
       .get("/api/gifs/search?searchedText=Supercalifragilisticoexpialidoso")
-      .expect(404);
+      .expect(200);
+    expect(response.body).toHaveLength(0);
   });
 
   it("can search and results contains the searched tag #funny", async () => {
@@ -96,6 +97,7 @@ describe("Gifs endpoint", function () {
   it("can search and results contains the searched tag #goiko", async () => {
     const response = await request(app)
       .get("/api/gifs/search?searchedText=" + encodeURIComponent("#goiko"))
-      .expect(404);
+      .expect(200);
+    expect(response.body).toHaveLength(0);
   });
 });

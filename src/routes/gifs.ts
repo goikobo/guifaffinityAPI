@@ -23,11 +23,6 @@ function createRouter(db: LowdbSync<DatabaseSchema>) {
       ? gifsService.searchByTag(searchedText)
       : gifsService.search(searchedText);
 
-    if (response.length === 0) {
-      res.sendStatus(404);
-      return;
-    }
-
     res.setHeader("Content-Type", "application/json");
     res.json(response);
   });
