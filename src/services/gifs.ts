@@ -21,7 +21,6 @@ class GifsService {
     const gifs: Gif[] = this.db.get("gifs").value();
 
     const lowerTag = tag.toLocaleLowerCase();
-    console.log({ lowerTag });
     return gifs
       .filter((gif) =>
         gif.tags.map((tag) => tag.toLocaleLowerCase()).includes(lowerTag)
