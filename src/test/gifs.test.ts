@@ -65,7 +65,7 @@ describe("Gifs endpoint", function () {
 
   it("can search and results contains the searched tag #funny", async () => {
     const response = await request(app)
-      .get("/api/gifs/search?searchedText=#funny")
+      .get(encodeURIComponent("/api/gifs/search?searchedText=#funny"))
       .expect(200);
     expect(response.body.length).toBeGreaterThanOrEqual(1);
     response.body.forEach((gif: Gif) => {

@@ -16,6 +16,18 @@ class GifsService {
       .filter((gif) => gif.title.toLowerCase().includes(text))
       .slice(0, 50);
   }
+
+  public searchByTag(tag: string) {
+    const gifs: Gif[] = this.db.get("gifs").value();
+
+    const lowerTag = tag.toLocaleLowerCase();
+    console.log({ lowerTag });
+    return gifs
+      .filter((gif) =>
+        gif.tags.map((tag) => tag.toLocaleLowerCase()).includes(lowerTag)
+      )
+      .slice(0, 50);
+  }
 }
 
 export default GifsService;

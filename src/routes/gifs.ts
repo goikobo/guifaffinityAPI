@@ -18,7 +18,14 @@ function createRouter(db: LowdbSync<DatabaseSchema>) {
   router.get("/search", async (req: SearchRequest, res: Response) => {
     const { searchedText } = req.query;
     const gifsService = new GifsService(db);
-    const response = gifsService.search(searchedText);
+
+    let response;
+    console.log({ searchedText, starts: searchedText.startsWith("#") });
+    if (searchedText.startsWith("#")) {
+      response = gifsService.searchByTag(searchedText);
+    } else {
+      response = gifsService.search(searchedText);
+    }
 
     res.setHeader("Content-Type", "application/json");
     res.json(response);
