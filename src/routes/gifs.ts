@@ -19,12 +19,9 @@ function createRouter(db: LowdbSync<DatabaseSchema>) {
     const { searchedText } = req.query;
     const gifsService = new GifsService(db);
 
-    let response;
-    if (searchedText.startsWith("#")) {
-      response = gifsService.searchByTag(searchedText);
-    } else {
-      response = gifsService.search(searchedText);
-    }
+    const response = searchedText.startsWith("#")
+      ? gifsService.searchByTag(searchedText)
+      : gifsService.search(searchedText);
 
     if (response.length === 0) res.status(404);
 
