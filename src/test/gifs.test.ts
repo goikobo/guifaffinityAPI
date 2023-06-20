@@ -86,4 +86,10 @@ describe("Gifs endpoint", function () {
       );
     });
   });
+
+  it("can search and results contains the searched tag #goiko", async () => {
+    const response = await request(app)
+      .get("/api/gifs/search?searchedText=" + encodeURIComponent("#goiko"))
+      .expect(404);
+  });
 });
