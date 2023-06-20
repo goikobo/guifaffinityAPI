@@ -22,11 +22,11 @@ function createRouter(db: LowdbSync<DatabaseSchema>) {
     let response;
     if (searchedText.startsWith("#")) {
       response = gifsService.searchByTag(searchedText);
-      if (response.length === 0) res.status(404);
     } else {
       response = gifsService.search(searchedText);
-      if (response.length === 0) res.status(404);
     }
+
+    if (response.length === 0) res.status(404);
 
     res.setHeader("Content-Type", "application/json");
     res.json(response);
