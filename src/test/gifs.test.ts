@@ -65,12 +65,24 @@ describe("Gifs endpoint", function () {
 
   it("can search and results contains the searched tag #funny", async () => {
     const response = await request(app)
-      .get(encodeURIComponent("/api/gifs/search?searchedText=#funny"))
+      .get("/api/gifs/search?searchedText=" + encodeURIComponent("#funny"))
       .expect(200);
     expect(response.body.length).toBeGreaterThanOrEqual(1);
     response.body.forEach((gif: Gif) => {
       expect(gif.tags.map((tag) => tag.toLocaleLowerCase())).toContain(
         "#funny"
+      );
+    });
+  });
+
+  it("can search and results contains the searched tag #movie", async () => {
+    const response = await request(app)
+      .get("/api/gifs/search?searchedText=" + encodeURIComponent("#movie"))
+      .expect(200);
+    expect(response.body.length).toBeGreaterThanOrEqual(1);
+    response.body.forEach((gif: Gif) => {
+      expect(gif.tags.map((tag) => tag.toLocaleLowerCase())).toContain(
+        "#movie"
       );
     });
   });
