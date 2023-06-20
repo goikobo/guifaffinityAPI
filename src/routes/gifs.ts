@@ -1,25 +1,29 @@
-import express, { Express, Router, Request, Response } from "express"
-import GifsService from "../services/gifs"
-import { LowdbSync } from "lowdb"
-import { DatabaseSchema } from "../interfaces/DatabaseSchema"
+import express, { Express, Router, Request, Response } from "express";
+import GifsService from "../services/gifs";
+import { LowdbSync } from "lowdb";
+import { DatabaseSchema } from "../interfaces/DatabaseSchema";
+import { Gif } from "../interfaces/Gif";
 
 function createRouter(db: LowdbSync<DatabaseSchema>) {
-  const router: Router = express.Router()
+  const router: Router = express.Router();
   router.get("/", async (req: Request, res: Response) => {
-    const gifsService = new GifsService(db)
-    const response = gifsService.get()
+    const gifsService = new GifsService(db);
+    const response = gifsService.get();
 
-    res.setHeader("Content-Type", "application/json")
-    res.json(response)
-  })
-  router.get("/search", async (req: Request, res: Response) => {
-    const gifsService = new GifsService(db)
-    const response = gifsService.search("cat")
+    res.setHeader("Content-Type", "application/json");
+    res.json(response);
+  });
 
-    res.setHeader("Content-Type", "application/json")
-    res.json(response)
-  })
-  return router
+  type SearchRequest = Request<{}, Gif[], {}, { searchedText: string }>;
+  router.get("/search", async (req: SearchRequest, res: Response) => {
+    const { searchedText } = req.query;
+    const gifsService = new GifsService(db);
+    const response = gifsService.search(searchedText);
+
+    res.setHeader("Content-Type", "application/json");
+    res.json(response);
+  });
+  return router;
 }
 
-export default createRouter
+export default createRouter;
