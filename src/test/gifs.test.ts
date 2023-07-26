@@ -114,5 +114,13 @@ describe("Gifs endpoint", function () {
         .get("/api/gifs/getById")
         .expect(200)
         .expect("Content-Type", /application\/json/))
+
+    it("returns something when put an getById", async () => {
+      const response = await request(app)
+        .get("/api/gifs/getById?id=VDSIi6IB4727grnoIH")
+        .expect(200)
+        .expect("Content-Type", /application\/json/)
+      expect(response.body?.id).toContain("VDSIi6IB4727grnoIH")
+    })
   })
 })
