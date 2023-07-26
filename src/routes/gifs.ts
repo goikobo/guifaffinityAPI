@@ -33,6 +33,11 @@ function createRouter(db: LowdbSync<DatabaseSchema>) {
     const gifsService = new GifsService(db)
     const response = gifsService.searchById(id)
 
+    if (!response) {
+      res.sendStatus(404)
+      return
+    }
+
     res.setHeader("Content-Type", "application/json")
     res.json(response)
   })

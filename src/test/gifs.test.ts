@@ -106,21 +106,18 @@ describe("Gifs endpoint", function () {
   })
 
   describe("/api/gifs/getById", () => {
-    it("exists /api/gifs/getById", async () =>
-      await request(app).get("/api/gifs/getById").expect(200))
-
-    it("return json on /api/gifs/getById", async () =>
-      await request(app)
-        .get("/api/gifs/getById")
-        .expect(200)
-        .expect("Content-Type", /application\/json/))
-
-    it("returns something when put an getById", async () => {
+    it("returns something when put a good id", async () => {
       const response = await request(app)
         .get("/api/gifs/getById?id=VDSIi6IB4727grnoIH")
         .expect(200)
         .expect("Content-Type", /application\/json/)
       expect(response.body?.id).toContain("VDSIi6IB4727grnoIH")
+    })
+
+    it("returns 404 when put a bad id", async () => {
+      await request(app)
+        .get("/api/gifs/getById?id=VDSIgoikoi6IB4727grnoIH")
+        .expect(404)
     })
   })
 })
