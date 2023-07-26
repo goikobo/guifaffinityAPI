@@ -28,7 +28,8 @@ function createRouter(db: LowdbSync<DatabaseSchema>) {
   })
 
   router.get("/getById", async (req: Request, res: Response) => {
-    res.sendStatus(200)
+    res.setHeader("Content-Type", "application/json")
+    res.json("{}")
   })
   return router
 }

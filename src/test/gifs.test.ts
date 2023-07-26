@@ -14,8 +14,6 @@ describe("Gifs endpoint", function () {
 
   it("exists /api/gifs", async () =>
     await request(app).get("/api/gifs").expect(200))
-  it("exists /api/gifs/getById", async () =>
-    await request(app).get("/api/gifs/getById").expect(200))
 
   it("return json", async () =>
     await request(app)
@@ -99,4 +97,13 @@ describe("Gifs endpoint", function () {
       .expect(200)
     expect(response.body).toHaveLength(0)
   })
+
+  it("exists /api/gifs/getById", async () =>
+    await request(app).get("/api/gifs/getById").expect(200))
+
+  it("return json on /api/gifs/getById", async () =>
+    await request(app)
+      .get("/api/gifs/getById")
+      .expect(200)
+      .expect("Content-Type", /application\/json/))
 })
